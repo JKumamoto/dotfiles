@@ -1,0 +1,35 @@
+sw_volume: 100
+audio_device_state:1:MPD
+state: stop
+current: 6
+random: 1
+repeat: 0
+single: 0
+consume: 0
+crossfade: 0
+mixrampdb: 0.000000
+mixrampdelay: -1.000000
+playlist_begin
+0:Arctic Monkeys/Arctic Monkeys - R U Mine_1.mp3
+1:Arctic Monkeys/Arctic Monkeys - Do I Wanna Know_1.mp3
+2:Hoobastank Discography/Hoobastank - Every Man For Himself (2006)/04 Hoobastank - Inside of You.mp3
+3:Hoobastank - Reason (2003)/02 Hoobastank - Out Of Control.mp3
+4:Hoobastank - Reason (2003)/08 Hoobastank - The Reason.mp3
+5:Hoobastank - Reason (2003)/09 Hoobastank - Let It Out.mp3
+6:Hoobastank Discography/Hoobastank - Hoobastank (2001)/03 Hoobastank - Running Away.mp3
+7:Hoobastank Discography/Hoobastank - Hoobastank (2001)/09 Hoobastank - Too Little Too Late.mp3
+8:Dead Kennedys/Give Me Convenience or Give Me/08 Holiday In Cambodia.MP3
+9:Hoobastank Discography/Hoobastank - 2009 - For(n)ever/03 So Close, So Far.mp3
+10:Oasis/FALLING DOWN.mp3
+11:Rise Against/Rise Against-Appeal to Reason (2008)/11 Savior.mp3
+12:Rise Against/RA-06-TS&tW/02 Injection.m4a
+13:Rise Against/RA-06-TS&tW/06 Prayer of the Refugee.m4a
+14:Skillet - Comatose/05 - Comatose.mp3
+15:Skillet - Comatose/08 - Falling Inside The Black.mp3
+16:Skillet - Comatose/10 - Whispers In The Dark.mp3
+17:Three Days Grace - One-X/Animal I Have Become.mp3
+18:Three Days Grace - One-X/Riot.mp3
+19:Three Days Grace - One-X/Time Of Dying.mp3
+20:Three Days Grace/03 I Hate Everything About You.mp3
+21:Sex Pistols - Never Mind The Bollocks - 1977/08-sex_pistols-never_mind_the_bollocks-(1977)-anarchy_in_the_uk.mp3
+playlist_end
