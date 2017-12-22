@@ -1,15 +1,18 @@
 #!/bin/sh
 
-dir=~/dotfiles
+dir=$(pwd)
 vim=~/.vim
 mpd=~/.config/mpd
 
-cp ~/.zshrc $dir
+cp ~/.zshrc $dir/zshrc
 
 echo "Updating vim files"
-cp ~/.vimrc $dir
-cp -r $vim/*.vim $dir/vim_conf
-cp -r $vim/autoload $dir/vim_conf
-cp -r $vim/colors $dir/vim_conf
-cp -r $vim/spell $dir/vim_conf
+cp ~/.vimrc ./vimrc
+mkdir -p ./vim
+cp $vim/*.vim ./vim
+cp -r $vim/autoload ./vim
+cp -r $vim/colors ./vim
+cp -r $vim/spell ./vim
+
+
 

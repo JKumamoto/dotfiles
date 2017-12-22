@@ -1,7 +1,17 @@
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
+let g:ycm_complete_in_comments=1
+let g:ycm_confirm_extra_conf=0
+let g:ycm_collect_identifiers_from_tags_files=1
+set completeopt-=preview
+let g:ycm_cache_omnifunc=0
+let g:ycm_seed_identifiers_with_syntax=1
+
+" java-complete
+"Plug 'artur-shaik/vim-javacomplete2'
+"autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 Plug 'sjl/gundo.vim'
-nnoremap <F5> :GundoToggle<CR>
+nnoremap <leader>g :GundoToggle<CR>
 let g:gundo_right=1
 
 " yankring
@@ -39,18 +49,52 @@ function! s:syntastic()
 	call lightline#update()
 endfunction
 
-" java-complete
-Plug 'artur-shaik/vim-javacomplete2'
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
-
-Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/nerdtree'
+map <C-f> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
 
 Plug 'majutsushi/tagbar'
-nnoremap <F8> :TagbarToggle<CR>
+nnoremap <F5> :TagbarToggle<CR>
 
 Plug 'easymotion/vim-easymotion'
 let g:EasyMotion_use_migemo=1
 let g:EasyMotion_enter_jump_first=1
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nnoremap <leader>s <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nnoremap <leader>s <Plug>(easymotion-overwin-f2)
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+" JK motions: Line motions
+nnoremap <Leader>j <Plug>(easymotion-j)
+nnoremap <Leader>k <Plug>(easymotion-k)
+
+
+Plug 'tpope/vim-fugitive'
+
+"Plug 'benmills/vimux'
+"nnoremap <Leader>vp :VimuxPromptCommand<CR>
+"nnoremap <Leader>vm :VimuxPromptCommand("make ")<CR>
+"nnoremap <Leader>vl :VimuxRunLastCommand<CR>
+"nnoremap <Leader>vs :VimuxInterruptRunner<CR>
+
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+Plug 'jeaye/color_coded'
+let g:color_coded_filetypes = ['c', 'cpp', 'cu', 'h', 'hpp']
+" To get full highlighting, specify these in your colorscheme.
+" See colors/twilighted.vim for example usage
+"hi link StructDecl Type
+"hi link UnionDecl Type
+"hi link ClassDecl Type
+"hi link EnumDecl Type
+
 
 " Lightline
 Plug 'itchyny/lightline.vim'
@@ -96,14 +140,13 @@ endfunction
 
 function! LightLineFilename()
 	let fname = expand('%:t')
-	return fname =~ '__Gundo__' ? '' :
-			\ &ft == 'unite' ? unite#get_status_string() : 
+	return fname =~ '__Gundo\|NERD_tree' ? '' :
 			\ ('' != fname ? fname : '[No Name]')
 endfunction
 
 function! LightLineFugitive()
 	try
-		if expand('%:t') !~? 'Gundo' && exists('*fugitive#head')
+		if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && exists('*fugitive#head')
 			let _ = fugitive#head()
 			return strlen(_) ? ' '._ : ''
 		endif
@@ -122,21 +165,20 @@ endfunction
 
 function! LightLineMode()
 	let fname = expand('%:t')
-	return fname == '__Gundo__' ? 'Gundo' :
+	return fname == '__Tagbar__' ? 'Tagbar' :
+			\ fname == '__Gundo__' ? 'Gundo' :
 			\ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
-			\ &ft == 'unite' ? 'Unite' :
+			\ fname =~ 'NERD_tree' ? 'NERDTree' :
 			\ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
-if has('nvim')
-	Plug 'neomake/neomake'
-	Plug 'bfredl/nvim-miniyank'
-	autocmd! BufReadPost,BufWritePost * Neomake
-	let g:neomake_serialize=1
-	let g:neomake_serialize_abort_on_error=1
-	map p <Plug>(miniyank-autoput)
-	map P <Plug>(miniyank-autoPut)
-endif
+"let g:tagbar_status_func = 'TagbarStatusFunc'
+
+"function! TagbarStatusFunc(current, sort, fname, ...) abort
+"    let g:lightline.fname = a:fname
+"  return lightline#statusline(0)
+"endfunction
+
 
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'wellle/tmux-complete.vim'
@@ -157,10 +199,6 @@ let g:livepreview_previewer = 'evince'
 let g:LatexBox_latexmk_preview_continuously=1
 let g:LatexBox_quickfix=2
 
-Plug 'rbgrouleff/bclose.vim'
-Plug 'francoiscabrol/ranger.vim'
-let g:ranger_open_new_tab=1
-
 Plug 'vimwiki/vimwiki'
 
 Plug 'rhysd/vim-grammarous'
@@ -168,9 +206,8 @@ let g:grammarous#use_vim_spelllang=1
 
 Plug 'beloglazov/vim-online-thesaurus'
 
-" Plug 'jeaye/color_coded'
 
 Plug 'mhinz/vim-startify'
 let g:startifu_list_order = [ ['MRU'], 'files', ['Bookmarks'], 'bookmarks', ['MRU'.getcwd()], 'dir' ]
-let g:startify_bookmarks = [ {'p': '~/.vim/plugins.vim'}, {'s': '~/.vim/settings.vim'}, {'t': '~/.tmux.conf'}, {'v': '~/.vimrc'}, {'z': '~/.zshrc'} ]
+let g:startify_bookmarks = [ {'a': '~/.config/awesome/rc.lua'}, {'i': '~/.config/i3/config'}, {'p': '~/.vim/plugins.vim'}, {'s': '~/.vim/settings.vim'}, {'t': '~/.tmux.conf'}, {'v': '~/.vimrc'}, {'z': '~/.zshrc'} ]
 

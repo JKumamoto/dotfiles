@@ -1,7 +1,7 @@
 " mouse enable e esconde qnd digita
 set mouse=a
 set mousehide
-set clipboard+=unnamedplus
+set clipboard^=unnamedplus
 set number
 set nowrap
 set tabstop=4 shiftwidth=4 noexpandtab
@@ -13,6 +13,7 @@ set showmatch matchtime=3
 set cpoptions-=m
 set matchpairs+=<:>
 set cursorline
+set wildmenu
 set splitbelow splitright
 set hidden
 set laststatus=2
@@ -25,7 +26,7 @@ endif
 set display+=lastline
 set t_ut=
 set ttyfast lazyredraw
-set showmode showcmd
+set showmode
 if(&relativenumber == 1)
 	set nornu
 	set number
@@ -54,7 +55,7 @@ endif
 " autocmds
 autocmd FileType tex set spell spelllang=pt complete+=kspell wrap nonumber fileencoding=latin1
 au FileType c,cpp,java set mps+==:;
-au FileType cuh set ft=cuda;
+autocmd FileType cuh set ft=cuda;
 
 " mappings
 noremap J <C-f>

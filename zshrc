@@ -6,10 +6,10 @@ ZSH_THEME="lambda-mod"
 
 export TERM=xterm-256color
 
-
-[[ $COLORTERM = gnome-terminal && ! $TERM = screen-256color ]] && TERM=xterm-256color
-
 eval "$(thefuck --alias)"
+
+alias pbcopy="xclip -selection c"
+alias pbpaste="xclip -selection c -o"
 
 # Uncomment the following line to disable auto-setting terminal title.
 DISABLE_AUTO_TITLE="true"
@@ -26,12 +26,15 @@ DISABLE_AUTO_UPDATE="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(command-not-found )
 
-source $HOME/.oh-my-zsh/custom/plugins/zsh-titles/titles.plugin.zsh
+#source $HOME/.oh-my-zsh/custom/plugins/zsh-titles/titles.plugin.zsh
 
 # User configuration
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+
 # export MANPATH="/usr/local/man:$MANPATH"
+export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 source $ZSH/oh-my-zsh.sh
 
@@ -43,3 +46,12 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+	source /etc/profile.d/vte.sh
+fi
+
+
